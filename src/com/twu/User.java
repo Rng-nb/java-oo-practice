@@ -6,6 +6,6 @@ public class User extends Person {
     }
 
     public void buyHotSearch() {
-        
+
     }
 }
