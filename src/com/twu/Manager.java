@@ -1,5 +1,7 @@
 package com.twu;
 
+import java.util.List;
+
 public class Manager extends Person {
     private String password;
 
@@ -14,7 +16,10 @@ public class Manager extends Person {
         this.password = password;
     }
 
-    public void insertSuperHotSearch() {
-
+    public void insertSuperHotSearch(List<HotSearch> hotSearchList, String insertHotSearchName) {
+        HotSearch newHotSearch = new HotSearch();
+        newHotSearch.setNameHotSearch(insertHotSearchName);
+        newHotSearch.setSuperHotSearch(true);
+        hotSearchList.add(newHotSearch);
     }
 }
