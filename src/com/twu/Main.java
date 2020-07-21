@@ -3,8 +3,12 @@ package com.twu;
 import java.util.Scanner;
 
 public class Main {
+    public static Manager manager;
 
     public static void main(String[] args) {
+        manager = new Manager();
+        manager.setPersonName("admin");
+        manager.setPassword("wyf1998");
         mainMenu();
     }
 
@@ -13,9 +17,6 @@ public class Main {
         String str_manager = "1. 管理员";
         String str_user = "2. 普通用户";
         String str_exit = "3. 退出";
-        String str_manager_menu = "您好，请输入您的管理员用户名与密码";
-        String str_output_name = "用户名:";
-        String str_output_password = "密码:";
 
         Scanner sc_input = new Scanner(System.in);
         boolean flag_repeat = true;
@@ -24,10 +25,7 @@ public class Main {
             int choose = sc_input.nextInt();
             switch (choose) {
                 case 1 :
-                    System.out.println(str_manager_menu + '\n' + str_output_name);
-                    String input_manager_name = sc_input.next();
-                    System.out.println(str_output_password);
-                    String input_manager_password = sc_input.next();
+                    managerLogin();
                     break;
                 case 2 :
                     break;
@@ -36,5 +34,24 @@ public class Main {
                     break;
             }
         }
+        sc_input.close();
     }
+
+    public static void managerLogin() {
+        Scanner sc_input = new Scanner(System.in);
+        System.out.println("您好，请输入您的管理员用户名与密码" + '\n' + "用户名:");
+        String input_manager_name = sc_input.next();
+        while(!input_manager_name.equals(manager.getPersonName())) {
+            System.out.println("用户名错误，请重新输入" + '\n' + "用户名:");
+            input_manager_name = sc_input.next();
+        }
+        System.out.println("密码:");
+        String input_manager_password = sc_input.next();
+        while(!input_manager_password.equals(manager.getPassword())) {
+            System.out.println("密码错误，请重新输入" + '\n' + "密码:");
+            input_manager_password = sc_input.next();
+        }
+        sc_input.close();
+    }
+
 }
