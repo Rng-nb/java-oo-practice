@@ -3,6 +3,9 @@ package com.twu;
 public class Manager extends Person {
     private String password;
 
+    public Manager() {
+    }
+
     public String getPassword() {
         return password;
     }
@@ -12,6 +15,6 @@ public class Manager extends Person {
     }
 
     public void insertSuperHotSearch() {
-        
+
     }
 }

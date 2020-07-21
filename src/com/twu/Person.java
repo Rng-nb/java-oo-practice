@@ -4,6 +4,10 @@ public class Person {
     private String personName;
     private int ticketNumber;
 
+    public Person() {
+
+    }
+
     public String getPersonName() {
         return personName;
     }
