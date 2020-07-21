@@ -4,7 +4,7 @@ public class User extends Person {
     private int ticketNumber;
 
     public User() {
-
+        setTicketNumber(10);
     }
 
     public int getTicketNumber() {
