@@ -67,6 +67,10 @@ public class SearchSystem {
             manager_choose = sc_manager.nextInt();
             switch (manager_choose) {
                 case 1:
+                    if(hotSearchList.size() <= 0) {
+                        System.out.println("热搜榜为空");
+                        break;
+                    }
                     manager.getTHotSearch(hotSearchList);
                     break;
                 case 2:
@@ -109,13 +113,21 @@ public class SearchSystem {
             user_choose = sc_user.nextInt();
             switch (user_choose) {
                 case 1:
+                    if(hotSearchList.size() <= 0) {
+                        System.out.println("热搜榜为空");
+                        break;
+                    }
                     user.getTHotSearch(hotSearchList);
                     break;
                 case 2:
+                    if(hotSearchList.size() <= 0) {
+                        System.out.println("热搜榜为空，无法投票!");
+                        break;
+                    }
                     System.out.println("请选择投票的热搜");
                     user.getTHotSearch(hotSearchList);
                     int ticket_choose = sc_user.nextInt();
-                    HotSearch ticketHotSearch = hotSearchList.get(ticket_choose);
+                    HotSearch ticketHotSearch = hotSearchList.get(ticket_choose - 1);
                     System.out.println("您选择的热搜是: " + "\"" + ticketHotSearch.getNameHotSearch() + "\"");
                     System.out.println("请输入您要投的票数(共"+ user.getTicketNumber() +"票):");
                     int ticket_number_give = sc_user.nextInt();
@@ -129,6 +141,28 @@ public class SearchSystem {
                     }
                     break;
                 case 3:
+                    if(hotSearchList.size() <= 0) {
+                        System.out.println("热搜榜为空，无法购买！");
+                        break;
+                    }
+                    System.out.println("请选择购买的热搜");
+                    user.getTHotSearch(hotSearchList);
+                    int buy_choose = sc_user.nextInt();
+                    HotSearch buyHotSearch = hotSearchList.get(buy_choose - 1);
+                    System.out.println("您选择的热搜是: " + "\"" + buyHotSearch.getNameHotSearch()  + "\"");
+                    System.out.println("请输入您购买的热搜排名: " );
+                    int buy_aim_id = sc_user.nextInt();
+                    System.out.println("请输入您购买的金额(当前"+ buyHotSearch.getPrivce() +"元):");
+                    int buy_money_give = sc_user.nextInt();
+                    if(buy_money_give < buyHotSearch.getPrivce()) {
+                        System.out.println("购买失败！");
+                    }
+                    else {
+                        System.out.println("购买成功");
+                        buyHotSearch.setPrivce(buy_money_give);
+                        buyHotSearch.setBuyHotSearch(true);
+                        user.buyHotSearch(hotSearchList, buy_aim_id, buyHotSearch);
+                    }
                     break;
                 case 4:
                     System.out.println("请输入添加的热搜名:");

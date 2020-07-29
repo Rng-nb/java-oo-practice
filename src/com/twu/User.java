@@ -27,7 +27,14 @@ public class User extends Person {
         ticketHotSearch.setTicketHotSearch(nowTicketNumber + ticketNumberGive);
     }
 
-    public void buyHotSearch() {
-
+    public void buyHotSearch(List<HotSearch> hotSearchlist, int buyHotSerchIdAim, HotSearch buyHotSearch) {
+        //判断购买的名次是否是当前所处的位置，不需要进行删除
+        int buyHotSearchIdNow = hotSearchlist.indexOf(buyHotSearch);
+        if(buyHotSearchIdNow != buyHotSerchIdAim -1) {
+            //购买名称与当前名次不一致，删除购买名称处的热搜
+            hotSearchlist.remove(buyHotSerchIdAim - 1);
+            hotSearchlist.add(buyHotSerchIdAim - 1, buyHotSearch);
+            hotSearchlist.remove(buyHotSearchIdNow);
+        }
     }
 }

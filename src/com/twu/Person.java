@@ -1,7 +1,6 @@
 package com.twu;
 
-import java.util.Comparator;
-import java.util.List;
+import java.util.*;
 
 public class Person {
     private String personName;
@@ -19,7 +18,18 @@ public class Person {
     }
 
     public void getTHotSearch(List<HotSearch> hotSearchList) {
-        hotSearchList.sort(new Comparator<HotSearch>() {
+        List<HotSearch> hotSearchListWithoutBuyHotSearch = new ArrayList<HotSearch>();
+        List<Pair> hotSerarchListBuyHotSearch = new ArrayList<Pair>();
+        for(int i = 0; i < hotSearchList.size(); ++ i) {
+            if(hotSearchList.get(i).isBuyHotSearch() == false)
+                hotSearchListWithoutBuyHotSearch.add(hotSearchList.get(i));
+            else {
+                Pair buyHotSearch = new Pair(i, hotSearchList.get(i));
+                hotSerarchListBuyHotSearch.add(buyHotSearch);
+            }
+        }
+
+        hotSearchListWithoutBuyHotSearch.sort(new Comparator<HotSearch>() {
             @Override
             public int compare(HotSearch o1, HotSearch o2) {
                 if(o1.getTicketHotSearch() > o2.getTicketHotSearch())
@@ -30,9 +40,20 @@ public class Person {
                     return 1;
             }
         });
+
+        hotSearchList.clear();
+        for(int i = 0; i < hotSearchListWithoutBuyHotSearch.size(); ++i)
+            hotSearchList.add(hotSearchListWithoutBuyHotSearch.get(i));
+
+        for(int i = 0; i < hotSerarchListBuyHotSearch.size(); ++i) {
+            int id = hotSerarchListBuyHotSearch.get(i).getId();
+            HotSearch hotSearch = hotSerarchListBuyHotSearch.get(i).getHotSearch();
+            hotSearchList.add(id, hotSearch);
+        }
+
         for (int i = 0; i < hotSearchList.size(); ++i) {
             HotSearch output_tmp = hotSearchList.get(i);
-            System.out.println(i + "  " + output_tmp.getNameHotSearch() + "  " + output_tmp.getTicketHotSearch());
+            System.out.println(i + 1 + "  " + output_tmp.getNameHotSearch() + "  " + output_tmp.getTicketHotSearch());
         }
     }
 
